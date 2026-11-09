@@ -34,6 +34,7 @@ function resolveSelector(target) {
   if (target === 'camera') return '.camera-wrapper';
   if (target.startsWith('speech-')) return `#${target}`;
   if (target.startsWith('prop-')) return `#${target}`;
+  if (target.startsWith('text-')) return `#${target}`;
 
   const dotIdx = target.indexOf('.');
   if (dotIdx === -1) return `#char-${target}`;
@@ -100,7 +101,12 @@ export function enterFade(event, defaults) {
   const sel = resolveSelector(event.target);
   const d = dur(event, 0.6);
   const e = ease(event, defaults, 'power1.out');
-  return `tl.fromTo("${sel}", { opacity: 0 }, { opacity: 1, duration: ${d}, ease: "${e}" }, ${pos(event)});`;
+  return [
+    // Strokes are pre-hidden for draw-in; a fade entrance must reveal them fully first
+    `tl.set("${sel} path", { strokeDashoffset: 0 }, ${pos(event)});`,
+    `tl.set("${sel} circle", { opacity: 1 }, ${pos(event)});`,
+    `tl.fromTo("${sel}", { opacity: 0 }, { opacity: 1, duration: ${d}, ease: "${e}" }, ${pos(event)});`
+  ].join('\n');
 }
 
 /**
@@ -198,24 +204,19 @@ export function cameraZoom(event, defaults) {
   const d = dur(event, defaults.cameraMoveDefault || 0.8);
   const e = ease(event, defaults, 'power2.inOut');
 
-  // If a target element is specified, calculate the transform-origin to zoom towards it
-  if (event.focalTarget) {
-    const focalSel = resolveSelector(event.focalTarget);
-    return [
-      `// Camera zoom to ${event.focalTarget} at scale ${scale}`,
-      `tl.add(function() {`,
-      `  var el = document.querySelector("${focalSel}");`,
-      `  if (el) {`,
-      `    var bbox = el.getBoundingClientRect();`,
-      `    var wrapper = document.querySelector("${sel}");`,
-      `    wrapper.style.transformOrigin = (bbox.x + bbox.width/2) + "px " + (bbox.y + bbox.height/2) + "px";`,
-      `  }`,
-      `}, ${pos(event)});`,
-      `tl.to("${sel}", { scale: ${scale}, duration: ${d}, ease: "${e}" }, ${pos(event)});`
-    ].join('\n');
-  }
-
-  return `tl.to("${sel}", { scale: ${scale}, duration: ${d}, ease: "${e}" }, ${pos(event)});`;
+  // Zoom so the focal point (a target element's centre, or explicit x/y in canvas units)
+  // lands at screen centre, clamped so the view never leaves the canvas.
+  const focalSel = event.focalTarget && !event.focalTarget.startsWith('camera') ? resolveSelector(event.focalTarget) : '';
+  const fx = typeof event.x === 'number' ? event.x : 'null';
+  const fy = typeof event.y === 'number' ? event.y : 'null';
+  return [
+    `// Camera zoom ${focalSel ? 'to ' + event.focalTarget : ''} at scale ${scale}`,
+    `(function() {`,
+    `  var f = __focalPoint(${JSON.stringify(focalSel)}, ${fx}, ${fy});`,
+    `  var s = ${scale};`,
+    `  tl.to("${sel}", { scale: s, x: __clampCam(W / 2 - f.x * s, W, s), y: __clampCam(H / 2 - f.y * s, H, s), duration: ${d}, ease: "${e}" }, ${pos(event)});`,
+    `})();`
+  ].join('\n');
 }
 
 /**
@@ -227,7 +228,14 @@ export function cameraPan(event, defaults) {
   const e = ease(event, defaults, 'power2.inOut');
   const x = event.x || 0;
   const y = event.y || 0;
-  return `tl.to("${sel}", { x: ${x}, y: ${y}, duration: ${d}, ease: "${e}" }, ${pos(event)});`;
+  // x/y are the canvas point to centre on (at the current zoom)
+  return [
+    `(function() {`,
+    `  tl.to("${sel}", { x: function() { var s = gsap.getProperty("${sel}", "scale"); return __clampCam(W / 2 - ${x} * s, W, s); },`,
+    `                   y: function() { var s = gsap.getProperty("${sel}", "scale"); return __clampCam(H / 2 - ${y} * s, H, s); },`,
+    `                   duration: ${d}, ease: "${e}" }, ${pos(event)});`,
+    `})();`
+  ].join('\n');
 }
 
 /**
@@ -398,6 +406,21 @@ export function textReveal(event, defaults) {
   ].join('\n');
 }
 
+/**
+ * text-overlay-in — Fade + slight rise for a text overlay, then fade out after its duration.
+ */
+export function textOverlayIn(event, defaults) {
+  const sel = resolveSelector(event.target);
+  const d = Math.min(0.4, (event.holdDuration || 2) / 3);
+  const lines = [
+    `tl.fromTo("${sel}", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: ${d}, ease: "power2.out" }, ${pos(event)});`
+  ];
+  if (event.holdDuration) {
+    lines.push(`tl.to("${sel}", { opacity: 0, duration: 0.25, ease: "power1.in" }, ${pos(event)} + ${event.holdDuration} - 0.25);`);
+  }
+  return lines.join('\n');
+}
+
 // ---------------------------------------------------------------------------
 // Action dispatcher
 // ---------------------------------------------------------------------------
@@ -426,6 +449,7 @@ const ACTION_MAP = {
   'celebrate': celebrate,
   'head-shake': headShake,
   'text-reveal': textReveal,
+  'text-overlay-in': textOverlayIn,
 };
 
 /**

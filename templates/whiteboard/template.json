@@ -1,6 +1,6 @@
 {
   "name": "whiteboard",
-  "description": "Hand-drawn whiteboard stickman animation — bean-body characters, ink illustrations, and draw-in animations on warm parchment. Optimized for entertainment, comedy, storytelling, and educational content.",
+  "description": "Hand-drawn whiteboard stickman animation \u2014 bean-body characters, ink illustrations, and draw-in animations on warm parchment. Optimized for entertainment, comedy, storytelling, and educational content.",
   "extends": "_base",
   "palette": {
     "primary": "#1A1A1A",
@@ -19,10 +19,10 @@
     "headingFont": "Caveat",
     "bodyFont": "Caveat",
     "dialogueFont": "Caveat",
-    "headingSize": 72,
-    "bodySize": 40,
-    "captionSize": 32,
-    "dialogueSize": 36,
+    "headingSize": 84,
+    "bodySize": 52,
+    "captionSize": 44,
+    "dialogueSize": 44,
     "lineHeight": 1.4,
     "headingWeight": 700,
     "bodyWeight": 400,
@@ -72,17 +72,17 @@
     ]
   },
   "sceneTypeDescriptions": {
-    "title-card": "Opening title or episode title — large hand-lettered text, minimal illustration, sets the tone. Static camera.",
-    "establishing": "Wide shot that sets the scene — shows location, time of day, and characters in context. Environment-heavy, character(s) small. Static camera.",
-    "action": "Dynamic scene with movement — running, jumping, chasing, fighting, falling. Exaggerated poses, motion lines, speed streaks. Camera pans to follow action.",
-    "dialogue": "Two or more characters talking — speech bubbles, expressive faces, gestures. Focus on upper bodies and faces. Camera may zoom to speaker.",
-    "reaction": "Close-up on a character's emotional response — the comedy/drama beat. Oversized head, exaggerated expression, minimal background. Camera zooms to face.",
-    "montage": "Multiple mini-scenes in one frame — time passing, a sequence of events, before/after. Laid out as 2-4 vignettes with divider lines or time arrows.",
-    "closeup": "Tight framing on a specific object, prop, or detail — a phone screen, a letter, a clock showing the time. Starts zoomed, minimal movement.",
-    "transition": "Bridge between scenes — a visual gag, a wipe, a character walking off-screen. Camera move IS the transition (zoom out, pan away, fade).",
-    "teaching": "Educational/explainer moment — character at a whiteboard, diagram, or pointing to a concept. Draw-in animation reveals the concept as narrator explains.",
-    "list": "Numbered or bulleted points appearing one by one — each item draws in sequentially. Static camera, item reveals provide motion.",
-    "closing": "Final scene — summary, call to action, or emotional landing. May echo the opening. Optional slow pull-back camera."
+    "title-card": "Opening title or episode title \u2014 large hand-lettered text, minimal illustration, sets the tone. Static camera.",
+    "establishing": "Wide shot that sets the scene \u2014 shows location, time of day, and characters in context. Environment-heavy, character(s) small. Static camera.",
+    "action": "Dynamic scene with movement \u2014 running, jumping, chasing, fighting, falling. Exaggerated poses, motion lines, speed streaks. Camera pans to follow action.",
+    "dialogue": "Two or more characters talking \u2014 speech bubbles, expressive faces, gestures. Focus on upper bodies and faces. Camera may zoom to speaker.",
+    "reaction": "Close-up on a character's emotional response \u2014 the comedy/drama beat. Oversized head, exaggerated expression, minimal background. Camera zooms to face.",
+    "montage": "Multiple mini-scenes in one frame \u2014 time passing, a sequence of events, before/after. Laid out as 2-4 vignettes with divider lines or time arrows.",
+    "closeup": "Tight framing on a specific object, prop, or detail \u2014 a phone screen, a letter, a clock showing the time. Starts zoomed, minimal movement.",
+    "transition": "Bridge between scenes \u2014 a visual gag, a wipe, a character walking off-screen. Camera move IS the transition (zoom out, pan away, fade).",
+    "teaching": "Educational/explainer moment \u2014 character at a whiteboard, diagram, or pointing to a concept. Draw-in animation reveals the concept as narrator explains.",
+    "list": "Numbered or bulleted points appearing one by one \u2014 each item draws in sequentially. Static camera, item reveals provide motion.",
+    "closing": "Final scene \u2014 summary, call to action, or emotional landing. May echo the opening. Optional slow pull-back camera."
   },
   "voice": {
     "defaultVoice": "af_heart",
@@ -117,7 +117,7 @@
     },
     {
       "id": "characters",
-      "question": "Who are the characters? List names and brief descriptions (e.g., 'Dave — tired office worker, always has coffee; Karen — overly enthusiastic manager'). Or type 'auto' to let the script writer decide:",
+      "question": "Who are the characters? List names and brief descriptions (e.g., 'Dave \u2014 tired office worker, always has coffee; Karen \u2014 overly enthusiastic manager'). Or type 'auto' to let the script writer decide:",
       "type": "text",
       "default": "auto"
     },
@@ -126,10 +126,10 @@
       "question": "What is the tone?",
       "type": "select",
       "options": [
-        "comedy — funny, exaggerated, slapstick-friendly",
-        "storytelling — narrative arc, emotional beats, character-driven",
-        "educational — teach a concept with humor and visual metaphors",
-        "satire — social commentary with wit and irony"
+        "comedy \u2014 funny, exaggerated, slapstick-friendly",
+        "storytelling \u2014 narrative arc, emotional beats, character-driven",
+        "educational \u2014 teach a concept with humor and visual metaphors",
+        "satire \u2014 social commentary with wit and irony"
       ]
     },
     {
@@ -143,9 +143,9 @@
       "question": "How long should the video be?",
       "type": "select",
       "options": [
-        "short — 30-90 seconds (social media clip)",
-        "medium — 2-4 minutes (standard YouTube short-form)",
-        "long — 5-10 minutes (full episode / deep explainer)"
+        "short \u2014 30-90 seconds (social media clip)",
+        "medium \u2014 2-4 minutes (standard YouTube short-form)",
+        "long \u2014 5-10 minutes (full episode / deep explainer)"
       ]
     },
     {
@@ -153,9 +153,9 @@
       "question": "Which formats do you need?",
       "type": "select",
       "options": [
-        "landscape — 16:9 for YouTube (default)",
-        "vertical — 9:16 for Instagram Reels / TikTok",
-        "both — Generate landscape + vertical versions"
+        "landscape \u2014 16:9 for YouTube (default)",
+        "vertical \u2014 9:16 for Instagram Reels / TikTok",
+        "both \u2014 Generate landscape + vertical versions"
       ],
       "default": "both"
     }
@@ -217,7 +217,7 @@
       "academic or formal language",
       "long complex sentences that kill comedic timing",
       "explaining the joke (let the illustration land it)",
-      "monotone energy — every scene needs distinct vocal energy",
+      "monotone energy \u2014 every scene needs distinct vocal energy",
       "AI filler phrases",
       "narrating exactly what the viewer can already see"
     ]

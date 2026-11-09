@@ -650,14 +650,7 @@ function assembleSpeechBubbles(bubbles, sceneDef, template) {
     // Position bubble relative to speaker based on string enum
     const sx = speakerPlacement?.position?.x || 400;
     const sy = speakerPlacement?.position?.y || 400;
-    let bx, by;
-    switch (bubble.position) {
-      case 'above':  bx = sx - 10; by = sy - 160; break;
-      case 'left':   bx = sx - 120; by = sy - 80; break;
-      case 'right':  bx = sx + 60; by = sy - 80; break;
-      case 'auto':
-      default:       bx = sx + 40; by = sy - 140; break;
-    }
+    const sc = speakerPlacement?.scale || 1.0; // offsets scale with the speaker so bubbles clear the head
 
     const text = escapeXml(bubble.text || '');
     const fontSize = template.typography?.dialogueSize || 36;
@@ -666,24 +659,57 @@ function assembleSpeechBubbles(bubbles, sceneDef, template) {
     const bg = template.palette?.background || '#E5DDD0';
 
     // Size bubble dynamically based on text length
-    const charWidth = fontSize * 0.35;
+    const charWidth = fontSize * 0.5;
     const textWidth = Math.max(text.length * charWidth, 80);
     const bw = textWidth + 30; // padding
-    const bh = fontSize + 24;
+    const bh = fontSize + 28;
     const r = 8; // corner radius
     const tailX = Math.round(bw * 0.3);
     const textX = Math.round(bw / 2);
     const textY = Math.round(bh * 0.6);
+    let bx, by;
+    switch (bubble.position) {
+      case 'above':  bx = sx - bw * 0.3; by = sy - 150 * sc - bh - 16; break;
+      case 'left':   bx = sx - 60 * sc - bw; by = sy - 130 * sc - bh; break;
+      case 'right':  bx = sx + 60 * sc; by = sy - 130 * sc - bh; break;
+      case 'auto':
+      default:       bx = sx + 45 * sc; by = sy - 140 * sc - bh; break;
+    }
 
     parts.push(
       `<g id="speech-${i}" transform="translate(${bx}, ${by})" opacity="0">`,
       `  <path d="M${r},2 L${bw - r},2 C${bw},2 ${bw},${r} ${bw},${r} L${bw},${bh - r} C${bw},${bh} ${bw - r},${bh} ${bw - r},${bh} L${tailX + 12},${bh} L${tailX},${bh + 16} L${tailX + 6},${bh} L${r},${bh} C0,${bh} 0,${bh - r} 0,${bh - r} L0,${r} C0,2 ${r},2 ${r},2 Z"`,
       `    stroke="${ink}" stroke-width="2.5" fill="${bg}" stroke-linecap="round"/>`,
-      `  <text class="bubble-text" x="${textX}" y="${textY}" text-anchor="middle" font-family="${fontFamily}" font-size="${fontSize * 0.7}" fill="${ink}" opacity="0">${text}</text>`,
+      `  <text class="bubble-text" x="${textX}" y="${textY}" text-anchor="middle" font-family="${fontFamily}" font-size="${fontSize}" fill="${ink}" opacity="0">${text}</text>`,
       `</g>`
     );
   }
   return parts.join('\n');
+}
+
+/**
+ * Text overlays (headings, captions) drawn in screen space above the camera.
+ */
+function assembleTextOverlays(overlays, template) {
+  if (!overlays || overlays.length === 0) return '';
+  const t = template.typography || {};
+  const ink = template.palette?.ink || template.palette?.primary || '#1A1A1A';
+  const muted = template.palette?.inkLight || template.palette?.secondary || ink;
+  const accent = template.palette?.accent || ink;
+  const styles = {
+    heading: { size: t.headingSize || 72, weight: t.headingWeight || 700, fill: ink, family: t.headingFont },
+    body: { size: t.bodySize || 40, weight: t.bodyWeight || 400, fill: ink, family: t.bodyFont },
+    caption: { size: t.captionSize || 32, weight: 400, fill: muted, family: t.bodyFont },
+    accent: { size: t.headingSize || 72, weight: 700, fill: accent, family: t.headingFont },
+  };
+  return overlays.map((o, i) => {
+    const st = styles[o.style] || styles.body;
+    const x = o.position?.x ?? 960;
+    const y = o.position?.y ?? 120;
+    return `<text id="text-${i}" x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" ` +
+      `font-family="${st.family || 'Caveat'}, cursive" font-size="${st.size}" font-weight="${st.weight}" fill="${st.fill}" opacity="0">` +
+      `${escapeXml(o.text || '')}</text>`;
+  }).join('\n    ');
 }
 
 function escapeXml(str) {
@@ -765,13 +791,30 @@ document.querySelectorAll("[id^='speech-'] path").forEach(function(path) {
 });
 
 var tl = gsap.timeline({ paused: true });
+var W = ${template.__width || 1920}, H = ${template.__height || 1080};
+gsap.set(".camera-wrapper", { svgOrigin: "0 0" });
+
+// Camera helpers: keep the zoomed view inside the canvas, and find an element's centre in canvas units
+function __clampCam(v, size, s) { return s <= 1 ? (1 - s) * size / 2 : Math.min(0, Math.max(size - size * s, v)); }
+function __focalPoint(sel, x, y) {
+  if (x !== null && y !== null) return { x: x, y: y };
+  var el = sel ? document.querySelector(sel) : null;
+  var wrap = document.querySelector(".camera-wrapper");
+  if (!el || !el.getBBox) return { x: W / 2, y: H / 2 };
+  var bb = el.getBBox();
+  var m = wrap.getCTM().inverse().multiply(el.getCTM());
+  var p = new DOMPoint(bb.x + bb.width / 2, bb.y + bb.height / 2).matrixTransform(m);
+  return { x: p.x, y: p.y };
+}
 `);
 
   // --------------- Camera initial state ---------------
   if (sceneDef.camera?.initial) {
     const cam = sceneDef.camera.initial;
     lines.push(`// Camera initial state`);
-    lines.push(`gsap.set(".camera-wrapper", { x: ${cam.x || 0}, y: ${cam.y || 0}, scale: ${cam.scale || 1.0}, transformOrigin: "center center" });`);
+    const cs = cam.scale || 1.0;
+    // Initial scale is about the canvas centre; express it as an explicit offset with svgOrigin 0 0
+    lines.push(`gsap.set(".camera-wrapper", { svgOrigin: "0 0", scale: ${cs}, x: ${(cam.x || 0)} + (1 - ${cs}) * W / 2, y: ${(cam.y || 0)} + (1 - ${cs}) * H / 2 });`);
     lines.push('');
   }
 
@@ -830,6 +873,13 @@ var tl = gsap.timeline({ paused: true });
     }
   }
 
+  // Text overlay events
+  if (sceneDef.textOverlays) {
+    sceneDef.textOverlays.forEach((t, i) => {
+      events.push({ time: t.time || 0, target: `text-${i}`, action: 'text-overlay-in', holdDuration: t.duration });
+    });
+  }
+
   // Speech bubble events
   if (sceneDef.speechBubbles) {
     for (let i = 0; i < sceneDef.speechBubbles.length; i++) {
@@ -838,7 +888,7 @@ var tl = gsap.timeline({ paused: true });
         time: sb.time || 0,
         target: `speech-${i}`,
         action: 'speech-bubble-in',
-        duration: sb.duration || 2.0,
+        duration: 0.35,
         bubbleIndex: i,
         holdDuration: sb.duration || 2.0,
       });
@@ -847,8 +897,13 @@ var tl = gsap.timeline({ paused: true });
 
   // Explicit timeline events from the scene definition
   if (sceneDef.timeline) {
+    const propIds = new Set((sceneDef.props || []).map(p => p.id));
     for (const ev of sceneDef.timeline) {
-      events.push(ev);
+      const base = (ev.target || '').split('.')[0];
+      // Timeline targets may name a prop by its id; props live under #prop-{id}
+      events.push(propIds.has(base) && !(sceneDef.characters || []).some(c => c.id === base)
+        ? { ...ev, target: `prop-${ev.target}` }
+        : ev);
     }
   }
 
@@ -957,6 +1012,36 @@ function generateSVGDefs(template, characters) {
 // ---------------------------------------------------------------------------
 
 /**
+ * GSAP <script> tag: inline the local copy from node_modules when installed so
+ * renders work offline and never depend on a CDN; otherwise use the CDN URL.
+ */
+function gsapScriptTag(gsapCdn) {
+  const local = path.join(REPO_ROOT, 'node_modules', 'gsap', 'dist', 'gsap.min.js');
+  if (fs.existsSync(local)) {
+    return `<script>${fs.readFileSync(local, 'utf-8').replace(/<\/script/gi, '<\\/script')}<\/script>`;
+  }
+  return `<script src="${gsapCdn}"><\/script>`;
+}
+
+/**
+ * @font-face rules for the template's fonts, embedded from assets/fonts/{Family}-{weight}.ttf
+ * so text renders in the intended typeface without network access.
+ */
+function fontFaceCSS(template) {
+  const fonts = new Set([template.typography?.headingFont, template.typography?.bodyFont, template.typography?.dialogueFont].filter(Boolean));
+  const rules = [];
+  for (const family of fonts) {
+    for (const weight of [400, 700]) {
+      const file = path.join(REPO_ROOT, 'assets', 'fonts', `${family.replace(/\s+/g, '')}-${weight}.ttf`);
+      if (!fs.existsSync(file)) continue;
+      const b64 = fs.readFileSync(file).toString('base64');
+      rules.push(`    @font-face { font-family: '${family}'; font-weight: ${weight}; src: url(data:font/ttf;base64,${b64}) format('truetype'); }`);
+    }
+  }
+  return rules.join('\n');
+}
+
+/**
  * Build the complete HTML document.
  */
 function buildHTML(sceneDef, template, characterSVGs, propSVGs, speechBubbleSVG, timelineScript, orientation) {
@@ -983,8 +1068,9 @@ function buildHTML(sceneDef, template, characterSVGs, propSVGs, speechBubbleSVG,
   <meta charset="UTF-8">
   <meta name="viewport" content="width=${width}, height=${height}">
   <title>Scene ${sceneDef.sceneId || '??'}</title>
-  <script src="${gsapCdn}"><\/script>
+  ${gsapScriptTag(gsapCdn)}
   <style>
+${fontFaceCSS(template)}
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       width: ${width}px;
@@ -1028,6 +1114,9 @@ ${template.palette?.characterStroke ? `    g[id^="char-"] path, g[id^="char-"] l
       ${speechBubbleSVG}
 
     </g>
+
+    <!-- Text overlays (screen space) -->
+    ${assembleTextOverlays(sceneDef.textOverlays, template)}
   </svg>
 
   <script>
@@ -1231,7 +1320,10 @@ export async function composeScene(sceneDefPath, options = {}) {
 
   // ---- Generate GSAP timeline ----
   console.log(`[compositor] Generating GSAP timeline...`);
-  const timelineScript = generateTimeline(sceneDef, template);
+  const canvas = orientation === 'vertical'
+    ? (template.layout?.vertical || { width: 1080, height: 1920 })
+    : (template.layout?.landscape || { width: 1920, height: 1080 });
+  const timelineScript = generateTimeline(sceneDef, { ...template, __width: canvas.width || 1920, __height: canvas.height || 1080 });
 
   // Count total events for reporting
   let eventCount = (sceneDef.timeline?.length || 0);
