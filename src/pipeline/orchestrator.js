@@ -56,8 +56,10 @@ const STEP_PREREQUISITES = {
   },
 };
 
-const PYTHON_EXE = path.join(REPO_ROOT, '.venv', 'Scripts', 'python.exe');
-const PYTHON_FALLBACK = 'python';
+const PYTHON_EXE = process.platform === 'win32'
+  ? path.join(REPO_ROOT, '.venv', 'Scripts', 'python.exe')
+  : path.join(REPO_ROOT, '.venv', 'bin', 'python');
+const PYTHON_FALLBACK = process.platform === 'win32' ? 'python' : 'python3';
 
 // ---------------------------------------------------------------------------
 // Logging

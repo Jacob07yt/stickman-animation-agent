@@ -555,7 +555,9 @@ function generateSubtitles(projectDir, slug) {
   log('subtitles', `Found ${tsFiles.length} timestamp file(s) — generating SRT`);
 
   const outputPath = path.join(projectDir, 'output', `${slug}.srt`);
-  const pythonExe = path.join(REPO_ROOT, '.venv', 'Scripts', 'python.exe');
+  const pythonExe = process.platform === 'win32'
+    ? path.join(REPO_ROOT, '.venv', 'Scripts', 'python.exe')
+    : path.join(REPO_ROOT, '.venv', 'bin', 'python');
   const scriptPath = path.join(REPO_ROOT, 'scripts', 'generate_subtitles.py');
 
   if (!fs.existsSync(scriptPath)) {
@@ -563,7 +565,7 @@ function generateSubtitles(projectDir, slug) {
     return null;
   }
 
-  const usePython = fs.existsSync(pythonExe) ? `"${pythonExe}"` : 'python';
+  const usePython = fs.existsSync(pythonExe) ? `"${pythonExe}"` : (process.platform === 'win32' ? 'python' : 'python3');
 
   const cmd = [
     usePython,
