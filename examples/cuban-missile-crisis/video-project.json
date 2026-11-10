@@ -1,0 +1,36 @@
+{
+  "title": "The Cuban Missile Crisis: How It Really Happened",
+  "slug": "cuban-missile-crisis-really-happened",
+  "topic": "How It Really Happened: The Cuban Missile Crisis (October 1962) \u2014 the secret deal, the hidden nukes and the submarine that nearly fired",
+  "created": "2026-11-09",
+  "config": {
+    "template": "coloured-sketch",
+    "voice": "kokoro",
+    "tone": "educational",
+    "duration": "long",
+    "aspect": "both",
+    "automation": "1-checkpoint",
+    "brand": "stick-to-history",
+    "series": "How It Really Happened",
+    "voiceId": "bm_fable",
+    "voiceSpeed": 1.0
+  },
+  "steps": {
+    "intake": {
+      "status": "complete"
+    },
+    "script": {
+      "status": "awaiting-review",
+      "version": 2
+    },
+    "voice": {
+      "status": "complete",
+      "sceneCount": 22
+    },
+    "timestamps": {
+      "status": "complete",
+      "sceneCount": 22
+    }
+  },
+  "lastStep": "timestamps"
+}

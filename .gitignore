@@ -11,3 +11,8 @@ build/
 .env
 scripts/*.py
 models/
+# Cross-platform helper scripts written for the sketch pipeline (tracked)
+!scripts/kokoro_tts.py
+!scripts/whisper_transcribe.py
+!scripts/generate_subtitles.py
+!scripts/download_models.py

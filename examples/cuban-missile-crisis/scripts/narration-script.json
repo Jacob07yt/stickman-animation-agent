@@ -1,0 +1,190 @@
+{
+  "title": "The Cuban Missile Crisis: How It Really Happened",
+  "series": "How It Really Happened",
+  "version": 2,
+  "targetWords": 1400,
+  "scenes": [
+    {
+      "id": "01",
+      "narration": "October 1962. For thirteen days, the world came closer to nuclear war than it ever has, before or since. And you probably know the story. Kennedy stares down Khrushchev. Khrushchev blinks. America wins. The end. Except... that's NOT how it happened.",
+      "characters": ["narrator", "kennedy", "khrushchev"],
+      "actions": ["kennedy and khrushchev in a staring contest across a table", "zoom on khrushchev, he blinks", "'THE END?' slams in, narrator appears"],
+      "emotion": "intrigued",
+      "visualDescription": "OCTOBER 1962 title, staring contest across a table with flags, blink close-up, red caption '...that's NOT how it happened.'"
+    },
+    {
+      "id": "02",
+      "narration": "What really happened involves a secret deal, missiles nobody knew about, and a submarine officer who may have saved the world. But to understand it, we need to rewind a few years.",
+      "characters": ["narrator"],
+      "actions": ["narrator counts three things on his fingers as three icons pop up: a sealed envelope, a hidden missile, a submarine", "narrator spins a rewind dial"],
+      "emotion": "teasing",
+      "visualDescription": "Three icons with question marks. Rewind arrows spin back."
+    },
+    {
+      "id": "03",
+      "narration": "It's the Cold War. The United States and the Soviet Union aren't fighting directly, but they're both building nuclear weapons as fast as they can. And in 1962, America is way ahead. The Soviets have only a few dozen missiles that can reach the United States. America has hundreds that can reach the Soviet Union.",
+      "characters": ["narrator", "kennedy", "khrushchev"],
+      "actions": ["world map with USA in blue and USSR in red", "two piles of missiles grow: a tall blue pile and a small red pile", "khrushchev looks at the piles and frowns"],
+      "emotion": "explanatory",
+      "visualDescription": "Coloured world map. Bar-chart style missile piles labelled USA and USSR."
+    },
+    {
+      "id": "04",
+      "narration": "And some of those American missiles are parked right next door to the Soviet Union, in Turkey. From there, they could hit Moscow in minutes. Khrushchev hated this. He reportedly joked about giving the Americans a taste of their own medicine.",
+      "characters": ["khrushchev"],
+      "actions": ["map zooms to Turkey, blue missiles point at Moscow", "khrushchev looks through binoculars at them, steam comes out of his ears", "a lightbulb appears over his head"],
+      "emotion": "annoyed",
+      "visualDescription": "Map of Turkey and the USSR with a dashed arrow to Moscow."
+    },
+    {
+      "id": "05",
+      "narration": "Meanwhile, ninety miles off the coast of Florida, there's Cuba. In 1959, Fidel Castro took power in a revolution and turned to the Soviet Union for support. America was not happy. In 1961, the CIA backed an invasion at the Bay of Pigs to overthrow him. It failed, badly. And the CIA kept plotting against Castro after that.",
+      "characters": ["narrator", "castro"],
+      "actions": ["map of Florida and Cuba with a '90 miles' arrow", "castro plants a Cuban flag and shakes hands with a red Soviet hand", "tiny boats land on a beach and sink", "a CIA folder labelled 'PLANS' keeps getting thicker"],
+      "emotion": "wry",
+      "visualDescription": "Florida and Cuba map, then a beach labelled 'Bay of Pigs, 1961'."
+    },
+    {
+      "id": "06",
+      "narration": "So now Castro wants protection, and Khrushchev wants to even the odds. Put those two together, and you get a very bold idea: secretly ship Soviet nuclear missiles to Cuba, right on America's doorstep.",
+      "characters": ["castro", "khrushchev"],
+      "actions": ["castro and khrushchev meet", "khrushchev unrolls a map with a big arrow to Cuba", "both look around and say 'shhh'"],
+      "emotion": "sneaky",
+      "visualDescription": "Two leaders huddled over a map stamped 'TOP SECRET'."
+    },
+    {
+      "id": "07",
+      "narration": "The operation was huge. Dozens of ships carried missiles, warheads, and around forty thousand Soviet troops. To keep it secret, many of the soldiers weren't even told where they were going. Some were reportedly handed winter gear, as if they were heading somewhere cold.",
+      "characters": ["narrator"],
+      "actions": ["a line of red ships crosses the Atlantic", "a soldier opens his bag and pulls out skis and a fur hat, then looks at a palm tree", "narrator shrugs"],
+      "emotion": "comedic",
+      "visualDescription": "Atlantic map with a convoy of red ships. Gag: soldier with skis under a palm tree."
+    },
+    {
+      "id": "08",
+      "narration": "It almost worked. But on October 14th, an American U-2 spy plane flew over Cuba and took hundreds of photos. Two days later, President Kennedy was shown the pictures. They were missile sites. Missiles that could reach Washington in minutes.",
+      "characters": ["kennedy"],
+      "actions": ["U-2 plane flies over Cuba with camera flashes", "kennedy looks at a photo through a magnifying glass", "range rings spread from Cuba over Washington D.C."],
+      "emotion": "alarmed",
+      "visualDescription": "Spy plane over Cuba, grainy photo labelled 'MISSILE SITE', red range rings over the US East Coast."
+    },
+    {
+      "id": "09",
+      "narration": "Kennedy gathered his top advisers in secret. Most of his generals had one answer: bomb the missile sites, then invade Cuba. But Kennedy kept asking the same question. What does Khrushchev do next? Bomb Cuba, and the Soviets might grab West Berlin. Then America has to respond... and then what?",
+      "characters": ["kennedy", "bobby", "general"],
+      "actions": ["advisers around a table", "the general slams the table and points at a drawing of bombs", "kennedy lines up dominoes labelled CUBA, BERLIN, WAR and taps the first one"],
+      "emotion": "tense",
+      "visualDescription": "Meeting room. Falling dominoes labelled CUBA, BERLIN, NUCLEAR WAR."
+    },
+    {
+      "id": "10",
+      "narration": "So he chose a middle path. On October 22nd, Kennedy went on TV and told the world: the missiles are there, and the US Navy will stop any ship carrying weapons to Cuba. He called it a quarantine, because a blockade is technically an act of war.",
+      "characters": ["kennedy"],
+      "actions": ["kennedy speaks from inside an old TV set", "missiles pop up on Cuba, range rings expand", "blue navy ships form a ring around Cuba", "'QUARANTINE' appears, 'blockade = act of war' crossed out"],
+      "emotion": "serious",
+      "visualDescription": "Map scene with TV inset, quarantine line of blue ships."
+    },
+    {
+      "id": "11",
+      "narration": "Soviet ships kept sailing toward the line. The world held its breath. And then, on October 24th, some of them stopped... and turned around. 'We're eyeball to eyeball,' said Secretary of State Dean Rusk, 'and I think the other fellow just blinked.'",
+      "characters": [],
+      "actions": ["red soviet ships approach the blue line", "they stop, turn around and sail away", "a giant eye blinks next to the quote"],
+      "emotion": "relief",
+      "visualDescription": "Map scene, then quote card with a blinking eyeball."
+    },
+    {
+      "id": "12",
+      "narration": "But the missiles ALREADY in Cuba were still there, and the Soviets were racing to finish them. The next day, at the United Nations, the American ambassador showed the world the spy photos, and told the Soviet ambassador he was ready to wait for an answer until hell freezes over.",
+      "characters": ["narrator"],
+      "actions": ["soviet workers hurry around missile sites with a 'nearly ready' progress bar", "a UN table with big photo boards", "an ambassador points at the photos; a thermometer drops into an icy 'hell'"],
+      "emotion": "tense",
+      "visualDescription": "Progress bar on Cuba. UN chamber with photo easels."
+    },
+    {
+      "id": "13",
+      "narration": "On October 26th, a long letter from Khrushchev arrived. It was emotional, almost desperate. He said both sides were pulling on a rope with a knot of war in the middle, and the harder they pulled, the tighter the knot would get. His offer: the Soviets would remove the missiles if America promised never to invade Cuba.",
+      "characters": ["khrushchev", "kennedy"],
+      "actions": ["khrushchev writes a long letter by lamplight", "kennedy and khrushchev pull on a rope with a knot labelled WAR that tightens", "khrushchev lets the rope go slack"],
+      "emotion": "hopeful",
+      "visualDescription": "Tug of war with a growing knot labelled WAR. Letter labelled 'Letter 1: no invasion'."
+    },
+    {
+      "id": "14",
+      "narration": "Then, the next morning, a second message came, read out on Moscow radio. This one asked for more. America must ALSO take its missiles out of Turkey. And that same day, everything started going wrong. Historians call it Black Saturday.",
+      "characters": ["khrushchev", "kennedy"],
+      "actions": ["an old radio blares a second message", "kennedy holds two letters, one in each hand, looking confused", "the page darkens and 'BLACK SATURDAY, OCT 27' is scrawled across it"],
+      "emotion": "ominous",
+      "visualDescription": "Letter 2 labelled '+ Turkey'. Background goes dark grey."
+    },
+    {
+      "id": "15",
+      "narration": "Over Cuba, a Soviet missile shot down an American U-2. The pilot, Major Rudolf Anderson, was killed. Over the Arctic, another U-2 got lost and drifted into Soviet airspace. Soviet fighter jets scrambled to catch it. One wrong move, and either incident could have started a war.",
+      "characters": ["narrator"],
+      "actions": ["a U-2 is hit and spirals down over Cuba", "a second U-2 wanders over a border on an Arctic map, compass spinning", "red fighter jets chase it back"],
+      "emotion": "tense",
+      "visualDescription": "Two quick map vignettes: Cuba and the Arctic."
+    },
+    {
+      "id": "16",
+      "narration": "And beneath the sea, it was even worse. A Soviet submarine, B-59, was being hunted by American destroyers. They dropped small practice depth charges to force it to the surface. But the crew had lost contact with Moscow. It was boiling hot inside, and they had no idea whether the war had already started. On board was a torpedo... with a nuclear warhead.",
+      "characters": ["savitsky", "arkhipov"],
+      "actions": ["cross-section of the sea: destroyers above, submarine below", "small explosions shake the submarine", "sweat drips; a thermometer climbs; a torpedo labelled NUCLEAR glows"],
+      "emotion": "terrified",
+      "visualDescription": "Cramped submarine interior, red warning light."
+    },
+    {
+      "id": "17",
+      "narration": "According to accounts that came out decades later, the captain wanted to fire it. But on this submarine, launching needed the agreement of the senior officers on board. And one of them, Vasili Arkhipov, said no. He calmed the captain down, and the submarine surfaced. Most people have never heard his name.",
+      "characters": ["savitsky", "arkhipov"],
+      "actions": ["captain points at the torpedo, shouting", "arkhipov puts a hand on his shoulder and shakes his head", "the submarine rises to the surface", "spotlight on arkhipov with his name written below"],
+      "emotion": "relief",
+      "visualDescription": "Spotlight label: 'Vasili Arkhipov: the man who said no'."
+    },
+    {
+      "id": "18",
+      "narration": "Back in Washington, Kennedy needed a way out, fast. So he did something clever. Publicly, he answered Khrushchev's FIRST letter: remove the missiles, and America won't invade Cuba. But that evening, his brother Robert met the Soviet ambassador in secret, and offered the rest of the deal. The missiles in Turkey would go too. Just not right away... and only if the deal stayed secret.",
+      "characters": ["kennedy", "bobby", "dobrynin"],
+      "actions": ["kennedy picks up letter 1 and holds it up to the cameras", "under the table, a second envelope slides across", "bobby and the ambassador meet in a dim office and shake hands; a 'TOP SECRET' stamp lands"],
+      "emotion": "secretive",
+      "visualDescription": "Split screen: public podium vs. dim office with a desk lamp."
+    },
+    {
+      "id": "19",
+      "narration": "The next morning, October 28th, Khrushchev announced on Moscow radio that the missiles were coming home. The crisis was over. And to the world, it looked exactly like the story you know: America stood firm, and the Soviets backed down.",
+      "characters": ["khrushchev", "kennedy"],
+      "actions": ["khrushchev speaks into a radio microphone", "red ships sail away from Cuba carrying missiles", "newspapers fly in with headlines 'SOVIETS BACK DOWN'"],
+      "emotion": "relief",
+      "visualDescription": "Radio broadcast waves, newspaper montage."
+    },
+    {
+      "id": "20",
+      "narration": "But it was really a trade. Both sides gave something up. The secret part stayed hidden for years, and the full story only came out decades later. And here's the scariest part. At the time, America thought there were around ten thousand Soviet troops in Cuba. There were over forty thousand, along with short-range nuclear weapons the US didn't know about. If Kennedy had listened to his generals and invaded... it could have gone nuclear on day one.",
+      "characters": ["narrator", "kennedy", "khrushchev"],
+      "actions": ["the staring contest returns; narrator lifts the tablecloth to reveal kennedy and khrushchev swapping papers underneath", "'10,000' is crossed out and replaced with '40,000+'", "small nuclear symbols pop up across Cuba"],
+      "emotion": "revelation",
+      "visualDescription": "Callback to the opening staring contest. Big crossed-out numbers."
+    },
+    {
+      "id": "21",
+      "narration": "After the crisis, both leaders were shaken. They set up a direct hotline between Washington and Moscow, so next time they could talk instead of guess. Within a year, they signed a treaty banning nuclear tests in the air and underwater. And Khrushchev? Many in Moscow saw the crisis as a humiliation. Two years later, he was forced out of power.",
+      "characters": ["kennedy", "khrushchev"],
+      "actions": ["kennedy and khrushchev each pick up a phone connected by a long cord across the map", "a treaty is signed", "khrushchev is gently pushed off stage by a crowd of red officials"],
+      "emotion": "reflective",
+      "visualDescription": "Hotline phones linked across the map. Treaty scroll."
+    },
+    {
+      "id": "22",
+      "narration": "So, thirteen days. The world didn't survive because one side won a staring contest. It survived because of a secret deal, a lot of luck, and a few people who chose NOT to push the button. I'm Stick, this is Stick to History, and I'll see you in the next one.",
+      "characters": ["narrator"],
+      "actions": ["the '13 DAYS' calendar flips to the last page", "three icons return: envelope, four-leaf clover, a hand NOT pressing a red button", "narrator waves; subscribe arrow and channel name"],
+      "emotion": "warm",
+      "visualDescription": "Recap icons, channel name end card."
+    }
+  ],
+  "shorts": [
+    { "id": "short-01", "title": "The man who stopped a nuclear war", "scenes": ["16", "17"], "hook": "In 1962, one officer on a Soviet submarine refused to launch a nuclear torpedo." },
+    { "id": "short-02", "title": "The secret deal behind the Cuban Missile Crisis", "scenes": ["18", "19", "20"], "hook": "Khrushchev didn't just blink. Kennedy made a secret deal." },
+    { "id": "short-03", "title": "Black Saturday: the most dangerous day in history", "scenes": ["14", "15"], "hook": "October 27th, 1962: a spy plane shot down, another lost over the Arctic, and the world one mistake from war." },
+    { "id": "short-04", "title": "Soviet soldiers were sent to Cuba with winter gear", "scenes": ["06", "07"], "hook": "The Soviets hid 40,000 troops on their way to Cuba. Some were reportedly packed for the snow." }
+  ]
+}

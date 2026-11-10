@@ -582,8 +582,8 @@ function blink(sel, t) {
   tl.set(sel + " .eyes", { opacity: 1 }, t + 0.22); tl.set(sel + " .eyes-shut", { opacity: 0 }, t + 0.22);
 }
 function zoom(x, y, s, t, d) {
-  var tx = s <= 1 ? (1 - s) * 960 : Math.min(0, Math.max(1920 - 1920 * s, 960 - x * s));
-  var ty = s <= 1 ? (1 - s) * 540 : Math.min(0, Math.max(1080 - 1080 * s, 540 - y * s));
+  var tx = s <= 1 ? (1 - s) * W / 2 : Math.min(0, Math.max(W - W * s, W / 2 - x * s));
+  var ty = s <= 1 ? (1 - s) * H / 2 : Math.min(0, Math.max(H - H * s, H / 2 - y * s));
   tl.to("#cam", { scale: s, x: tx, y: ty, duration: d || 0.8, ease: "power2.inOut" }, t);
 }
 function shake(t, n) { tl.to("#cam", { x: "+=10", duration: 0.04, yoyo: true, repeat: (n || 4) * 2 - 1, ease: "none" }, t); }
@@ -591,25 +591,28 @@ function darken(t, a, d) { tl.to("#shade", { opacity: a, duration: d || 0.6 }, t
 """
 
 
-def page(scene_id, duration, svg_body, js, bg=BG, lines=True, overlay=""):
-    """Full HTML document. svg_body goes inside the camera group; overlay sits above it (screen space)."""
-    ruled = '<rect width="1920" height="1080" fill="url(#lines)"/>' if lines else ""
+def page(scene_id, duration, svg_body, js, bg=BG, lines=True, overlay="", width=1920, height=1080):
+    """Full HTML document. svg_body goes inside the camera group; overlay sits above it (screen space).
+    Use width=1080, height=1920 for vertical Shorts."""
+    W, H = width, height
+    ruled = f'<rect width="{W}" height="{H}" fill="url(#lines)"/>' if lines else ""
     return f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Scene {scene_id}</title>
 <script>{_gsap()}</script>
 <style>@font-face{{font-family:Cav;src:url(data:font/ttf;base64,{_font(700)}) format('truetype');font-weight:700}}
 @font-face{{font-family:Cav;src:url(data:font/ttf;base64,{_font(400)}) format('truetype');font-weight:400}}
-*{{margin:0;padding:0}} body{{width:1920px;height:1080px;overflow:hidden;background:{bg}}} svg{{display:block}}</style></head>
-<body data-composition-id="scene-{scene_id}" data-width="1920" data-height="1080" data-fps="30" data-duration="{duration}" data-start="0">
-<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+*{{margin:0;padding:0}} body{{width:{W}px;height:{H}px;overflow:hidden;background:{bg}}} svg{{display:block}}</style></head>
+<body data-composition-id="scene-{scene_id}" data-width="{W}" data-height="{H}" data-fps="30" data-duration="{duration}" data-start="0">
+<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
 <defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
-<pattern id="lines" width="1920" height="54" patternUnits="userSpaceOnUse"><line x1="0" y1="53" x2="1920" y2="53" stroke="{LINE}" stroke-width="2"/></pattern>
+<pattern id="lines" width="{W}" height="54" patternUnits="userSpaceOnUse"><line x1="0" y1="53" x2="{W}" y2="53" stroke="{LINE}" stroke-width="2"/></pattern>
 <radialGradient id="spot" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff8d0" stop-opacity=".9"/><stop offset="100%" stop-color="#fff8d0" stop-opacity="0"/></radialGradient></defs>
-<rect width="1920" height="1080" fill="{bg}"/>{ruled}
+<rect width="{W}" height="{H}" fill="{bg}"/>{ruled}
 <g id="cam">{svg_body}</g>
-<rect id="shade" width="1920" height="1080" fill="#20242a" opacity="0" pointer-events="none"/>
+<rect id="shade" width="{W}" height="{H}" fill="#20242a" opacity="0" pointer-events="none"/>
 {overlay}
 </svg>
-<script>{HELPERS}
+<script>var W = {W}, H = {H};
+{HELPERS}
 {js}
 window.__timelines = window.__timelines || {{}}; window.__timelines["scene-{scene_id}"] = tl;
 </script></body></html>'''

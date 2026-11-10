@@ -8,8 +8,10 @@ const path = require('path');
   const [html, out, fpsArg] = process.argv.slice(2);
   const fps = +(fpsArg || 30);
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+  let page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   await page.goto('file://' + path.resolve(html));
+  const size = await page.evaluate(() => ({ w: +document.body.dataset.width || 1920, h: +document.body.dataset.height || 1080 }));
+  if (size.w !== 1920 || size.h !== 1080) { await page.setViewportSize({ width: size.w, height: size.h }); await page.reload(); }
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(400);
   const dur = +(await page.evaluate(() => document.body.dataset.duration));

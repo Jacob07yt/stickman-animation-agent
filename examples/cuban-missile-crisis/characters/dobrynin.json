@@ -1,0 +1,72 @@
+{
+  "id": "dobrynin",
+  "name": "Anatoly Dobrynin",
+  "role": "Soviet ambassador to the US",
+  "tier": 1,
+  "proportions": {
+    "totalHeight": 215,
+    "headDiameter": 80,
+    "torsoWidth": 38
+  },
+  "components": {
+    "head": "front",
+    "torso": "suit",
+    "hair": "short-tufts",
+    "defaultExpression": "neutral",
+    "defaultArms": "relaxed",
+    "defaultLegs": "standing",
+    "defaultHands": "mitten-open",
+    "defaultFeet": "formal-shoes"
+  },
+  "distinguishing": {
+    "accessory": "glasses",
+    "clothingPattern": "crosshatch",
+    "visualNotes": "Glasses and crosshatched suit; labelled 'Soviet Ambassador'"
+  },
+  "poses": {
+    "standing": {
+      "legs": "standing",
+      "arms": "relaxed"
+    },
+    "pointing": {
+      "legs": "standing",
+      "arms": "pointing"
+    },
+    "walking": {
+      "legs": "walking",
+      "arms": "trailing"
+    },
+    "presenting": {
+      "legs": "standing",
+      "arms": "raised"
+    },
+    "thinking": {
+      "legs": "standing",
+      "arms": "forward-holding",
+      "expression": "thinking"
+    },
+    "arms-crossed": {
+      "legs": "standing",
+      "arms": "crossed"
+    },
+    "facepalm": {
+      "legs": "standing",
+      "arms": "facepalm",
+      "expression": "sad"
+    },
+    "celebrating": {
+      "legs": "jumping",
+      "arms": "celebrating",
+      "expression": "happy"
+    },
+    "sitting": {
+      "legs": "sitting",
+      "arms": "forward-holding"
+    },
+    "speaking": {
+      "legs": "standing",
+      "arms": "raised",
+      "expression": "speaking"
+    }
+  }
+}

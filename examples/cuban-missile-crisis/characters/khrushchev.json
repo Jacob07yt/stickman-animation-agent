@@ -1,0 +1,77 @@
+{
+  "id": "khrushchev",
+  "name": "Nikita Khrushchev",
+  "role": "Soviet leader",
+  "tier": 2,
+  "proportions": {
+    "totalHeight": 205,
+    "headDiameter": 80,
+    "torsoWidth": 38
+  },
+  "components": {
+    "head": "front",
+    "torso": "suit",
+    "hair": "bald",
+    "defaultExpression": "neutral",
+    "defaultArms": "relaxed",
+    "defaultLegs": "standing",
+    "defaultHands": "fist",
+    "defaultFeet": "formal-shoes"
+  },
+  "distinguishing": {
+    "accessory": null,
+    "clothingPattern": "crosshatch",
+    "visualNotes": "Bald, round, heavy crosshatched suit, slightly shorter and wider stance; labelled 'Khrushchev'"
+  },
+  "poses": {
+    "standing": {
+      "legs": "standing",
+      "arms": "relaxed"
+    },
+    "pointing": {
+      "legs": "standing",
+      "arms": "pointing"
+    },
+    "walking": {
+      "legs": "walking",
+      "arms": "trailing"
+    },
+    "presenting": {
+      "legs": "standing",
+      "arms": "raised"
+    },
+    "thinking": {
+      "legs": "standing",
+      "arms": "forward-holding",
+      "expression": "thinking"
+    },
+    "arms-crossed": {
+      "legs": "standing",
+      "arms": "crossed"
+    },
+    "facepalm": {
+      "legs": "standing",
+      "arms": "facepalm",
+      "expression": "sad"
+    },
+    "celebrating": {
+      "legs": "jumping",
+      "arms": "celebrating",
+      "expression": "happy"
+    },
+    "sitting": {
+      "legs": "sitting",
+      "arms": "forward-holding"
+    },
+    "speaking": {
+      "legs": "standing",
+      "arms": "raised",
+      "expression": "speaking"
+    },
+    "angry": {
+      "legs": "standing",
+      "arms": "raised",
+      "expression": "angry"
+    }
+  }
+}

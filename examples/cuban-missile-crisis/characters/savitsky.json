@@ -1,0 +1,77 @@
+{
+  "id": "savitsky",
+  "name": "Captain Valentin Savitsky",
+  "role": "Commander of submarine B-59",
+  "tier": 1,
+  "proportions": {
+    "totalHeight": 220,
+    "headDiameter": 80,
+    "torsoWidth": 38
+  },
+  "components": {
+    "head": "front",
+    "torso": "polo",
+    "hair": "short-tufts",
+    "defaultExpression": "neutral",
+    "defaultArms": "relaxed",
+    "defaultLegs": "standing",
+    "defaultHands": "fist",
+    "defaultFeet": "standing-shoe"
+  },
+  "distinguishing": {
+    "accessory": null,
+    "clothingPattern": "stripes",
+    "visualNotes": "Striped naval polo, sweaty, fist; labelled 'Captain'"
+  },
+  "poses": {
+    "standing": {
+      "legs": "standing",
+      "arms": "relaxed"
+    },
+    "pointing": {
+      "legs": "standing",
+      "arms": "pointing"
+    },
+    "walking": {
+      "legs": "walking",
+      "arms": "trailing"
+    },
+    "presenting": {
+      "legs": "standing",
+      "arms": "raised"
+    },
+    "thinking": {
+      "legs": "standing",
+      "arms": "forward-holding",
+      "expression": "thinking"
+    },
+    "arms-crossed": {
+      "legs": "standing",
+      "arms": "crossed"
+    },
+    "facepalm": {
+      "legs": "standing",
+      "arms": "facepalm",
+      "expression": "sad"
+    },
+    "celebrating": {
+      "legs": "jumping",
+      "arms": "celebrating",
+      "expression": "happy"
+    },
+    "sitting": {
+      "legs": "sitting",
+      "arms": "forward-holding"
+    },
+    "speaking": {
+      "legs": "standing",
+      "arms": "raised",
+      "expression": "speaking"
+    },
+    "angry": {
+      "legs": "standing",
+      "arms": "pointing",
+      "expression": "angry"
+    }
+  }
+}
