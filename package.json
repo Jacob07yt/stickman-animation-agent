@@ -12,6 +12,7 @@
     "preview": "npx hyperframes preview"
   },
   "dependencies": {
+    "gsap": "^3.12.5",
     "hyperframes": "latest"
   }
 }
