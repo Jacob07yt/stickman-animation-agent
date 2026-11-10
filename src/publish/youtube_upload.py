@@ -44,12 +44,17 @@ def access_token():
     missing = [k for k in ("YT_CLIENT_ID", "YT_CLIENT_SECRET", "YT_REFRESH_TOKEN") if not os.environ.get(k)]
     if missing:
         sys.exit(f"Missing environment variables: {', '.join(missing)} (add them in the environment settings, then start a new session)")
+    # Tolerate values pasted with surrounding quotes or spaces
+    val = lambda k: os.environ[k].strip().strip('"').strip("'").strip()
     body = urllib.parse.urlencode({
-        "client_id": os.environ["YT_CLIENT_ID"], "client_secret": os.environ["YT_CLIENT_SECRET"],
-        "refresh_token": os.environ["YT_REFRESH_TOKEN"], "grant_type": "refresh_token"}).encode()
+        "client_id": val("YT_CLIENT_ID"), "client_secret": val("YT_CLIENT_SECRET"),
+        "refresh_token": val("YT_REFRESH_TOKEN"), "grant_type": "refresh_token"}).encode()
     st, _, raw = http("POST", "https://oauth2.googleapis.com/token", body, {"Content-Type": "application/x-www-form-urlencoded"})
     if st != 200:
-        sys.exit(f"Token refresh failed ({st}): {raw.decode(errors='replace')[:300]}")
+        t = val("YT_REFRESH_TOKEN")
+        sys.exit(f"Token refresh failed ({st}): {raw.decode(errors='replace')[:300]}\n"
+                 f"Refresh token check: length {len(t)}, starts with '1//': {t.startswith('1//')}, contains spaces: {' ' in t}. "
+                 "invalid_grant usually means the token was copied incompletely, revoked, or issued for a different client ID.")
     return json.loads(raw)["access_token"]
 
 
