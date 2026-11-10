@@ -1,5 +1,7 @@
 # Stickman Animation Agent
 
+**Read `PLAYBOOK.md` before any video work and follow it. Nothing gets posted until its quality gate passes.**
+
 Fully automated stickman animation video pipeline. Topic → script → characters → voice → timestamps → storyboard → composition → render → final MP4 with narration, music, and subtitles.
 
 ## Architecture
