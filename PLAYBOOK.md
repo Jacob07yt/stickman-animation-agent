@@ -5,6 +5,16 @@ These rules apply to every Stick to History video and Short.
 
 Each job has its own role: **researcher, writer, editor, quality checker, publisher**.
 One rule is absolute: **nothing gets posted until the quality checker passes it.**
+
+## Channel decisions (Stick to History)
+
+- **Pass bar: 90/100.** Ideas scoring below 90 are not built; videos scoring below 90 at the quality gate go back, not out.
+- **Roles run as separate agents**, one per role, each returning a written scorecard (score, evidence, fixes).
+- **Competitor study works from what is visible in search** (titles, views, dates, lengths, thumbnails, descriptions, chapters).
+  Do not download other channels' videos. Use links or files the owner provides when available.
+- **Constant brand:** keep the parchment + ink + Caveat "coloured history sketch" look on every video. Per-video styling is limited
+  to accent colours, props and music choice within that brand. (Overrides the "style each video" rule below.)
+- Applies to every video from the Cuban Missile Crisis onward (that video was posted as-is) until the owner says otherwise.
 Add a rule here every time something goes wrong, so the same mistake never happens twice.
 
 ## 1. Before you make anything
