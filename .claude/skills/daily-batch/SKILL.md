@@ -88,16 +88,18 @@ The researcher, writer and editor roles also each give a score with evidence in 
 For each passed item:
 1. Write `projects/<slug>/upload.json` (format in `src/publish/youtube_upload.py`; example `examples/cuban-missile-crisis/upload.json`):
    key `<date>-<slug>`, `"expect_channel": "Stick to History"`, title, description (with chapters for long videos),
-   tags, category 27, `made_for_kids: false`, thumbnail and captions paths, and `publish_at` in UTC for the release slot
-   (Europe/Dublin: long videos 17:00 and 20:00, Shorts 12:00 and 15:00 on the next day, until analytics say otherwise).
+   tags, category 27, `made_for_kids: false`, thumbnail and captions paths, **`"privacy": "private"` and no `publish_at`**.
+   The owner reviews each private upload and approves it by scheduling or publishing it in YouTube Studio.
    Shorts: title ends with " #Shorts", vertical file, no thumbnail.
 2. Upload: `python3 src/publish/youtube_upload.py projects/<slug>/upload.json`. It refuses a wrong channel or a repeat key.
-   If it fails (missing credentials, quota, auth), do not retry in a loop: record the error and fall back to delivery only.
+   Uploads are always private: never set public or unlisted. If the upload fails (missing credentials, quota, auth),
+   do not retry in a loop: record the error and fall back to delivery only.
 3. Deliver with SendUserFile (status "proactive") as a backup copy: the MP4, `.srt`, metadata and thumbnail.
 
-Then send a short delivery note: what was made, the YouTube links and release times, the four role scores, anything cut
-or labelled, and which earlier video each new one should link to in end screens/playlists.
-Note: until Google approves the API audit, YouTube keeps API uploads private; say so in the note so the owner can publish them.
+Then send a short delivery note: what was made, the private YouTube links, the **suggested release time for each**
+(Europe/Dublin: long videos 17:00 and 20:00, Shorts 12:00 and 15:00 the next day, until analytics say otherwise),
+the four role scores, anything cut or labelled, and which earlier video each new one should link to in end screens/playlists.
+To approve a video the owner opens it in YouTube Studio -> Visibility -> Schedule (or Public).
 
 ## 6. Record (end of every run)
 
