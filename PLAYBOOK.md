@@ -14,6 +14,8 @@ One rule is absolute: **nothing gets posted until the quality checker passes it.
   Do not download other channels' videos. Use links or files the owner provides when available.
 - **Constant brand:** keep the parchment + ink + Caveat "coloured history sketch" look on every video. Per-video styling is limited
   to accent colours, props and music choice within that brand. (Overrides the "style each video" rule below.)
+- **Approval:** nightly uploads are private. The owner approves a batch by replying **approved1** in that night's session;
+  only then are the videos scheduled at their suggested release times.
 - Applies to every video from the Cuban Missile Crisis onward (that video was posted as-is) until the owner says otherwise.
 Add a rule here every time something goes wrong, so the same mistake never happens twice.
 

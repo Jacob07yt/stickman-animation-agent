@@ -100,6 +100,15 @@ Then send a short delivery note: what was made, the private YouTube links, the *
 (Europe/Dublin: long videos 17:00 and 20:00, Shorts 12:00 and 15:00 the next day, until analytics say otherwise),
 the four role scores, anything cut or labelled, and which earlier video each new one should link to in end screens/playlists.
 To approve a video the owner opens it in YouTube Studio -> Visibility -> Schedule (or Public).
+End the note with: "Reply **approved1** to schedule all of these at the suggested times."
+
+### When the owner replies "approved1"
+The owner's reply `approved1` in this session approves every video delivered in this batch. For each uploaded video,
+schedule it at its suggested release time (converted to UTC; if that time has already passed, use the same slot the next
+day): `python3 src/publish/youtube_upload.py --schedule <VIDEO_ID> <YYYY-MM-DDTHH:MM:SSZ>`.
+Only an exact `approved1` from the owner counts; any other reply is not approval. Then reply with each video's title,
+link and scheduled Europe/Dublin time, and commit `channel/upload-log.md`. If YouTube refuses (for example the video is
+locked private until the API audit passes), report the exact error and tell the owner to schedule it in YouTube Studio.
 
 ## 6. Record (end of every run)
 

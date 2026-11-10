@@ -6,6 +6,7 @@ Credentials come from environment variables (set by the channel owner in the clo
 Usage:
   python src/publish/youtube_upload.py <upload.json>          # upload one video
   python src/publish/youtube_upload.py --check                 # verify credentials, print channel name
+  python src/publish/youtube_upload.py --schedule VIDEO_ID 2026-11-11T17:00:00Z   # schedule an uploaded private video
 
 upload.json:
 {
@@ -123,9 +124,32 @@ def upload(spec):
     return vid
 
 
+def schedule(video_id, publish_at, made_for_kids=False):
+    """Schedule an already-uploaded video: it stays private until publish_at (UTC, ISO 8601), then goes public."""
+    tok = access_token()
+    cid, cname = channel(tok)
+    st, _, raw = http("GET", f"{API}/youtube/v3/videos?part=status,snippet&id={video_id}", headers={"Authorization": f"Bearer {tok}"})
+    items = json.loads(raw).get("items", []) if st == 200 else []
+    if not items:
+        sys.exit(f"Video {video_id} not found on {cname} ({st}): {raw.decode(errors='replace')[:300]}")
+    body = {"id": video_id, "status": {"privacyStatus": "private", "publishAt": publish_at,
+                                       "selfDeclaredMadeForKids": bool(made_for_kids)}}
+    st, _, raw = http("PUT", f"{API}/youtube/v3/videos?part=status", json.dumps(body).encode(),
+                      {"Authorization": f"Bearer {tok}", "Content-Type": "application/json; charset=UTF-8"})
+    if st != 200:
+        sys.exit(f"Scheduling failed ({st}): {raw.decode(errors='replace')[:500]}")
+    res = json.loads(raw)["status"]
+    print(f"Scheduled https://youtu.be/{video_id} '{items[0]['snippet']['title']}' -> publishAt {res.get('publishAt')} (privacy {res.get('privacyStatus')})")
+    if LOG.exists():
+        with LOG.open("a", encoding="utf-8") as f:
+            f.write(f"| {datetime.now(timezone.utc):%Y-%m-%d %H:%M} | schedule-{video_id} | {items[0]['snippet']['title']} | https://youtu.be/{video_id} | scheduled | {publish_at} |\n")
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--check":
         cid, cname = channel(access_token()); print(f"Credentials OK. Channel: {cname} ({cid})")
+    elif len(sys.argv) == 4 and sys.argv[1] == "--schedule":
+        schedule(sys.argv[2], sys.argv[3])
     elif len(sys.argv) == 2:
         upload(json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")))
     else:
