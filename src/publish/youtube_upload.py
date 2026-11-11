@@ -7,6 +7,7 @@ Usage:
   python src/publish/youtube_upload.py <upload.json>          # upload one video
   python src/publish/youtube_upload.py --check                 # verify credentials, print channel name
   python src/publish/youtube_upload.py --schedule VIDEO_ID 2026-11-11T17:00:00Z   # schedule an uploaded private video
+  python src/publish/youtube_upload.py --publish VIDEO_ID [VIDEO_ID ...]            # make uploaded videos public now
 
 upload.json:
 {
@@ -145,9 +146,38 @@ def schedule(video_id, publish_at, made_for_kids=False):
             f.write(f"| {datetime.now(timezone.utc):%Y-%m-%d %H:%M} | schedule-{video_id} | {items[0]['snippet']['title']} | https://youtu.be/{video_id} | scheduled | {publish_at} |\n")
 
 
+def publish_now(video_id):
+    """Make an already-uploaded video public immediately (clears any scheduled publishAt)."""
+    tok = access_token()
+    cid, cname = channel(tok)
+    st, _, raw = http("GET", f"{API}/youtube/v3/videos?part=status,snippet&id={video_id}", headers={"Authorization": f"Bearer {tok}"})
+    items = json.loads(raw).get("items", []) if st == 200 else []
+    if not items:
+        sys.exit(f"Video {video_id} not found on {cname} ({st}): {raw.decode(errors='replace')[:300]}")
+    cur = items[0]["status"]
+    body = {"id": video_id, "status": {"privacyStatus": "public",
+                                       "selfDeclaredMadeForKids": bool(cur.get("madeForKids", False)),
+                                       "embeddable": cur.get("embeddable", True),
+                                       "license": cur.get("license", "youtube"),
+                                       "publicStatsViewable": cur.get("publicStatsViewable", True)}}
+    st, _, raw = http("PUT", f"{API}/youtube/v3/videos?part=status", json.dumps(body).encode(),
+                      {"Authorization": f"Bearer {tok}", "Content-Type": "application/json; charset=UTF-8"})
+    if st != 200:
+        sys.exit(f"Publishing failed ({st}): {raw.decode(errors='replace')[:500]}")
+    res = json.loads(raw)["status"]
+    title = items[0]["snippet"]["title"]
+    print(f"Published https://youtu.be/{video_id} '{title}' (privacy {res.get('privacyStatus')}, was {cur.get('privacyStatus')})")
+    if LOG.exists():
+        with LOG.open("a", encoding="utf-8") as f:
+            f.write(f"| {datetime.now(timezone.utc):%Y-%m-%d %H:%M} | publish-{video_id} | {title} | https://youtu.be/{video_id} | {res.get('privacyStatus')} | - |\n")
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--check":
         cid, cname = channel(access_token()); print(f"Credentials OK. Channel: {cname} ({cid})")
+    elif len(sys.argv) >= 3 and sys.argv[1] == "--publish":
+        for v in sys.argv[2:]:
+            publish_now(v)
     elif len(sys.argv) == 4 and sys.argv[1] == "--schedule":
         schedule(sys.argv[2], sys.argv[3])
     elif len(sys.argv) == 2:
