@@ -16,6 +16,9 @@ One rule is absolute: **nothing gets posted until the quality checker passes it.
   to accent colours, props and music choice within that brand. (Overrides the "style each video" rule below.)
 - **Approval:** nightly uploads are private. The owner approves a batch by replying **approved1** in that night's session;
   only then are the videos scheduled at their suggested release times.
+- **Cadence (from 13 Nov 2026):** 1 Short every day, and 1 high-quality long video every 3 days (long days are
+  15 Nov 2026 and every 3rd day after: 18, 21, 24 Nov ...). A long video is only done when the checker's fix list is
+  empty, not just when it scores 90.
 - Applies to every video from the Cuban Missile Crisis onward (that video was posted as-is) until the owner says otherwise.
 Add a rule here every time something goes wrong, so the same mistake never happens twice.
 
